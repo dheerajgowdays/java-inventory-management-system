@@ -1,4 +1,6 @@
-public class InvoiceItems {
+package model;
+import model.Product;
+public class InvoiceItems{
 
     private Product product;
     private int quantity;
@@ -14,7 +16,7 @@ public class InvoiceItems {
     public Product getProduct() {
         return product;
     }
-    public void setProduct(Stirng product){
+    public void setProduct(Product product){
         this.product = product;
     }
     public int getQuantity(){

@@ -1,19 +1,22 @@
+package model;
+
 public class Product{
 
     private final String productId;
-    private Stirng productName;
+    private String productName;
     private int price;
     private String category;
     private int quantity;
 
-    Product(Stirng productName,int price,String category,int quantity){
+    public Product(String productId,String productName,int price,String category,int quantity){
+        this.productId = productId;
         this.productName = productName;
         this.price = price;
         this.category = category;
         this.quantity = quantity;
     }
 
-    public Stirng getProductId(){
+    public String getProductId(){
         return productId;
     }
 
@@ -28,8 +31,13 @@ public class Product{
     public String getCategory(){
         return category;
     }
+    
+    public void setQuantity(int quantity){ this.quantity = quantity;}
 
     public int getQuantity(){
         return quantity;
     }
+
+
+
 }

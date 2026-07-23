@@ -1,7 +1,13 @@
 import java.util.Scanner;
+
+import service.ProductService;
+
+import model.Product;
+
 public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
+        ProductService service = new ProductService();
         while(true){
             System.out.println("\n ==================== Inventory Management ==================== \n");
             System.out.println("1.  Add Product");
@@ -18,10 +24,25 @@ public class Main {
             System.out.println("12. Exit ");
             System.out.println("\n Enter Your Choice: ");
             int choice = sc.nextInt();
-
+            sc.nextLine();
             switch (choice){
                 case 1:
                     //Add Product
+                    System.out.println("\n ==================== Add Product ==================== \n");
+                    System.out.print("Enter Product Id: ");
+                    String productId = sc.nextLine();
+                    System.out.print("Enter Product Name: ");
+                    String productName = sc.nextLine();
+                    System.out.print("Enter Product Price: ");
+                    int price = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Enter Product Category: ");
+                    String category = sc.nextLine();
+                    System.out.print("Enter Product Quantity: ");
+                    int quantity = sc.nextInt();
+                    System.out.println();
+                    Product product = new Product(productId,productName,price,category,quantity);
+                    service.addProduct(productId,product);
                     break;
                 case 2:
                     //View Product
@@ -45,7 +66,7 @@ public class Main {
                     //Import Products (csv)
                     break;
                 case 9:
-                    //Exprot Products (csv)
+                    //Export Products (csv)
                     break;
                 case 10:
                     //Backup Data
