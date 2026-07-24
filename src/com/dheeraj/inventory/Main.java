@@ -11,7 +11,7 @@ public class Main {
         while(true){
             System.out.println("\n ==================== Inventory Management ==================== \n");
             System.out.println("1.  Add Product");
-            System.out.println("2.  View Product");
+            System.out.println("2.  View Products");
             System.out.println("3.  Search Product");
             System.out.println("4.  Update Product");
             System.out.println("5.  Delete Product");
@@ -46,6 +46,8 @@ public class Main {
                     break;
                 case 2:
                     //View Product
+                    System.out.println("\n ==================== View Product ====================\n");
+                    service.getProduct();
                     break;
                 case 3:
                     //Search Product
