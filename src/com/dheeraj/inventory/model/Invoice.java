@@ -1,24 +1,31 @@
+package model;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import model.InvoiceItems;
+
 public class Invoice{
 
     private final String invoiceId;
-    private final Stirng customerName;
+    private final String customerName;
     private final int phoneNumber;
     private final LocalDate date;
-    private final ArrayList<IvoiceItems> items;
+    private final ArrayList<InvoiceItems> items;
     private final int total;
 
-    Invoice(Stirng customerName,int phoneNumber){
+    Invoice(String invoiceId, String customerName, int phoneNumber, ArrayList<InvoiceItems> items, int total){
+        this.invoiceId = invoiceId;
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
-        this.date = LocaleDate.now();
+        this.items = items;
+        this.total = total;
+        this.date = LocalDate.now();
     }
 
     public String getInvoiceId() {
         return invoiceId;
     }
 
-    public Stirng getCustomerName() {
+    public String getCustomerName() {
         return customerName;
     }
 
@@ -30,7 +37,7 @@ public class Invoice{
         return date;
     }
 
-    public ArrayList<IvoiceItems> getItems() {
+    public ArrayList<InvoiceItems> getItems() {
         return items;
     }
 

@@ -3,19 +3,19 @@ import model.Product;
 import repository.ProductRepository;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class ProductService{
     ProductRepository productRepository = new ProductRepository();
     public void addProduct(String id, Product product){
-        HashMap<String,Product> products = productRepository.pr
-        if (!products.containsKey(id)) {
-            products.put(id, product);
+        if (!productRepository.contains(id)){
+            productRepository.addProducts(id,product);
             System.out.println("Product Successfully Added");
         } else {
-            Product prod = products.get(id);
-            if (!prod.getProductName().equalsIgnoreCase(productName)) {
+            Product prod = productRepository.IfExist(id);
+            if (!prod.getProductName().equalsIgnoreCase(product.getProductName())) {
                 System.out.println("For this Product Id Product Name Does Not Match ");
-            } else if (!(prod.getPrice() == price)) {
+            } else if (!(prod.getPrice() == product.getPrice())) {
                 System.out.println("For this Product Id Product Prices Does Not Match ");
             } else {
                 prod.setQuantity(prod.getQuantity() + 1);
@@ -23,9 +23,53 @@ public class ProductService{
             }
         }
     }
-    public void getProduct(){
-        HashMap<String,Product> products = productRepository.getAll();
-        for(Product product : products.values()){
+    public  void deleteProduct(String id){
+        if(productRepository.contains(id)){
+            productRepository.deleteProduct(id);
+            System.out.println("Product Successfully Deleted!");
+        }else{
+            System.out.println("Enter a Valid Product ID ");
+        }
+    }
+    public void getProduct(String id){
+        if(productRepository.contains(id)) {
+            Product product = productRepository.IfExist(id);
+            System.out.println("Product Id      : " + product.getProductId());
+            System.out.println("Product Name    : " + product.getProductName());
+            System.out.println("Product Price   : " + product.getPrice());
+            System.out.println("Product Category: " + product.getCategory());
+            System.out.println("Product Quantity: " + product.getQuantity());
+        }else{
+            System.out.println("Enter a Valid Product ID ");
+        }
+    }
+    public boolean exist(String id){
+        return productRepository.contains(id);
+    }
+    public void UpdateName(String id , String name){
+        Product product = productRepository.IfExist(id);
+        product.setProductName(name);
+        System.out.println("Successfully Name Updated");
+    }
+    public void UpdatePrice(String id, int price){
+        Product product = productRepository.IfExist(id);
+        product.setPrice(price);
+        System.out.println("Successfully Price Updated");
+    }
+    public void UpdateCategory(String id, String category){
+        Product product = productRepository.IfExist(id);
+        product.setCategory(category);
+        System.out.println("Successfully Category Updated");
+    }
+    public void UpdateQuantity(String id , int quantity){
+        Product product = productRepository.IfExist(id);
+        product.setQuantity(quantity);
+        System.out.println("Successfully Quantity Updated");
+    }
+    public void getAllProduct(){
+        Iterator<Product> products = productRepository.getAll();
+        while (products.hasNext()){
+            Product product = products.next();
             System.out.println("Product Id      : " + product.getProductId());
             System.out.println("Product Name    : " + product.getProductName());
             System.out.println("Product Price   : " + product.getPrice());
