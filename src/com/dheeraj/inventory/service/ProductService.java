@@ -1,8 +1,6 @@
 package service;
 import model.Product;
 import repository.ProductRepository;
-
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class ProductService{
@@ -18,8 +16,8 @@ public class ProductService{
             } else if (!(prod.getPrice() == product.getPrice())) {
                 System.out.println("For this Product Id Product Prices Does Not Match ");
             } else {
-                prod.setQuantity(prod.getQuantity() + 1);
-                System.out.println("Product Exist So One More Added Successfully");
+                prod.setQuantity(prod.getQuantity() + product.getQuantity());
+                System.out.println("Product Exist So More Quantity Added Successfully");
             }
         }
     }
@@ -46,25 +44,25 @@ public class ProductService{
     public boolean exist(String id){
         return productRepository.contains(id);
     }
-    public void UpdateName(String id , String name){
+    public void updateName(String id , String name){
         Product product = productRepository.IfExist(id);
         product.setProductName(name);
-        System.out.println("Successfully Name Updated");
+        System.out.println("\n Successfully Name Updated \n");
     }
-    public void UpdatePrice(String id, int price){
+    public void updatePrice(String id, int price){
         Product product = productRepository.IfExist(id);
         product.setPrice(price);
-        System.out.println("Successfully Price Updated");
+        System.out.println("\n Successfully Price Updated \n");
     }
-    public void UpdateCategory(String id, String category){
+    public void updateCategory(String id, String category){
         Product product = productRepository.IfExist(id);
         product.setCategory(category);
-        System.out.println("Successfully Category Updated");
+        System.out.println("\n Successfully Category Updated \n");
     }
-    public void UpdateQuantity(String id , int quantity){
+    public void updateQuantity(String id , int quantity){
         Product product = productRepository.IfExist(id);
         product.setQuantity(quantity);
-        System.out.println("Successfully Quantity Updated");
+        System.out.println("\n Successfully Quantity Updated \n");
     }
     public void getAllProduct(){
         Iterator<Product> products = productRepository.getAll();
