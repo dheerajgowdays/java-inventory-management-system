@@ -1,18 +1,18 @@
 package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import model.InvoiceItems;
 
 public class Invoice{
 
-    private final String invoiceId;
+    private final long invoiceId;
     private final String customerName;
-    private final int phoneNumber;
+    private final long phoneNumber;
     private final LocalDate date;
-    private final ArrayList<InvoiceItems> items;
+    private  ArrayList<InvoiceItems> items;
     private final int total;
 
-    Invoice(String invoiceId, String customerName, int phoneNumber, ArrayList<InvoiceItems> items, int total){
+
+    public Invoice(long invoiceId, String customerName, long phoneNumber, ArrayList<InvoiceItems> items, int total){
         this.invoiceId = invoiceId;
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
@@ -21,7 +21,7 @@ public class Invoice{
         this.date = LocalDate.now();
     }
 
-    public String getInvoiceId() {
+    public long getInvoiceId() {
         return invoiceId;
     }
 
@@ -29,7 +29,7 @@ public class Invoice{
         return customerName;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -43,5 +43,9 @@ public class Invoice{
 
     public int getTotal() {
         return total;
+    }
+
+    public void addInvoiceItem(InvoiceItems invoiceItems){
+        items.add(invoiceItems);
     }
 }
