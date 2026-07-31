@@ -2,21 +2,22 @@ package model;
 import model.Product;
 public class InvoiceItems{
 
-    private Product product;
+    private String product;
     private int quantity;
     private int priceAtPurchase;
     private int subPrice;
 
-    InvoiceItems( Product product,int quantity,int priceAtPurchase){
+    public InvoiceItems( String product,int quantity,int priceAtPurchase,int subPrice){
         this.product = product;
         this.priceAtPurchase = priceAtPurchase;
         this.quantity = quantity;
+        this.subPrice = subPrice;
     }
 
-    public Product getProduct() {
+    public String getProduct() {
         return product;
     }
-    public void setProduct(Product product){
+    public void setProduct(String  product){
         this.product = product;
     }
     public int getQuantity(){
