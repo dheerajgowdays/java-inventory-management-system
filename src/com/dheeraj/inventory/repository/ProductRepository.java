@@ -14,7 +14,10 @@ public class ProductRepository {
     public Iterator<Product> getAll(){
         return products.values().iterator();
     }
-
+    public String getProductName(String id){
+        Product product = products.get(id);
+        return product.getProductName();
+    }
     public boolean contains(String id){
         return products.containsKey(id);
     }
@@ -27,5 +30,7 @@ public class ProductRepository {
     public void deleteProduct(String id){
         products.remove(id);
     }
-
+    public HashMap<String ,Product> getProducts(){
+        return products;
+    }
 }
