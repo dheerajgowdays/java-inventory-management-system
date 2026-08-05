@@ -1,14 +1,15 @@
 package repository;
 import model.Product;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import storage.FileStorage;
 
 public class ProductRepository {
-    HashMap<String, Product> products = new LinkedHashMap<>();
-
+    FileStorage storage = new FileStorage();
+    LinkedHashMap<String, Product> products = storage.readProduct();
     public void addProducts(String id, Product product) {
         products.put(id,product);
+        storage.writeProduct(products);
     }
 
     public Iterator<Product> getAll(){
@@ -29,8 +30,9 @@ public class ProductRepository {
     }
     public void deleteProduct(String id){
         products.remove(id);
+        storage.writeProduct(products);
     }
-    public HashMap<String ,Product> getProducts(){
+    public LinkedHashMap<String ,Product> getProducts(){
         return products;
     }
 }

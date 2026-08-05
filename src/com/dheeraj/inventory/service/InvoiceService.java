@@ -22,7 +22,7 @@ public class InvoiceService {
             System.out.println("Name:"+invoice.getCustomerName());
             System.out.println("Phone Number: "+invoice.getPhoneNumber());
             System.out.println("Date:"+invoice.getDate());
-            System.out.println("Total Number of Items: "+invoice.);
+            System.out.println("Total Number of Items: "+invoice);
             for(InvoiceItems invoiceItems : invoice.getItems() ){
                 System.out.println("\n ----------------------------------");
                 System.out.println("Product Id: "+invoiceItems.getProduct());
