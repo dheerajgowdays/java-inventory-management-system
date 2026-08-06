@@ -4,7 +4,11 @@ import repository.ProductRepository;
 import java.util.Iterator;
 
 public class ProductService{
-    ProductRepository productRepository = new ProductRepository();
+
+    ProductRepository productRepository;
+    public ProductService(ProductRepository productRepository){
+        this.productRepository = productRepository;
+    }
     public void addProduct(String id, Product product){
         if (!productRepository.contains(id)){
             productRepository.addProducts(id,product);
@@ -76,5 +80,4 @@ public class ProductService{
             System.out.println("----------------------------------------------\n");
         }
     }
-    
 }

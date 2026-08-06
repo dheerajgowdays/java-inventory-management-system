@@ -1,5 +1,6 @@
 package storage;
 
+import model.Invoice;
 import model.Product;
 
 import java.io.FileInputStream;
@@ -19,6 +20,7 @@ public class FileStorage  {
             System.out.println("Failed to write: "+e.getMessage());
         }
     }
+    @SuppressWarnings("unchecked")
     public LinkedHashMap<String,Product> readProduct(){
         try(FileInputStream fis = new FileInputStream("storage/products.dat");
             ObjectInputStream ois = new ObjectInputStream(fis)){
@@ -29,5 +31,14 @@ public class FileStorage  {
             System.out.println("Failed to read: "+e.getMessage());
         }
         return new LinkedHashMap<>();
+    }
+    public void writeInvoice(LinkedHashMap<String , Invoice> invoice){
+        try(FileOutputStream fos = new FileOutputStream("storage/invoice.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos)){
+            oos.writeObject(invoice);
+            System.out.println(" -> Save complete.\n");
+        }catch (Exception e){
+            System.out.println("Failed to write: "+e.getMessage());
+        }
     }
 }

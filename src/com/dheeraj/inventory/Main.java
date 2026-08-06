@@ -1,20 +1,24 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import model.Invoice;
 import model.InvoiceItems;
+import model.Product;
+import repository.InvoiceRepository;
+import repository.ProductRepository;
 import service.InvoiceService;
 import service.ProductService;
-
-import model.Product;
 import util.IdGenerator;
+import util.Validation;
 
 public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        ProductService service = new ProductService();
-        InvoiceService invoiceService = new InvoiceService();
+        ProductRepository productRepository = new ProductRepository();
+        InvoiceRepository invoiceRepository = new InvoiceRepository();
+        ProductService service = new ProductService(productRepository);
+        InvoiceService invoiceService = new InvoiceService(productRepository,invoiceRepository);
         IdGenerator idGenerator = new IdGenerator();
+        Validation validation = new Validation(productRepository);
         while(true){
             System.out.println("\n ==================== Inventory Management ==================== \n");
             System.out.println("1.  Add Product");
@@ -79,7 +83,7 @@ public class Main {
                             System.out.println("\nEnter Your Choice:");
                             int uChoice = sc.nextInt();
                             sc.nextLine();
-                            switch (uChoice){
+                            switch(uChoice){
                                 case 1:
                                     System.out.print("Enter the Product Name: ");
                                     String uProductName = sc.nextLine();
@@ -123,26 +127,34 @@ public class Main {
                     System.out.println("\n ==================== Generate Invoice ====================\n");
                     System.out.print("Enter Customer Name       : ");
                     String customerName = sc.nextLine();
-                    System.out.print("Enter Customer PhoneNumber:");
+                    System.out.print("Enter Customer PhoneNumber: ");
                     long customerNumber = sc.nextLong();
-                    System.out.print("Enter How Many Products   : ");
-                    int many = sc.nextInt();
                     sc.nextLine();
+                    boolean yes;
                     int subTotal =0;
-                    while (many>0){
+                    do {
                         System.out.println("\n -------------------------------- \n");
-                        System.out.print("Enter the Product Id      : ");
-                        String iProductId = sc.nextLine();
-                        System.out.print("Enter the Product Price   : ");
-                        int iPrice = sc.nextInt();
-                        System.out.print("Enter the Product Quantity: ");
-                        int iQuantity = sc.nextInt();
-                        sc.nextLine();
-                        subTotal += iPrice;
-                        InvoiceItems invoiceItems = new InvoiceItems(iProductId,iQuantity,iPrice,subTotal);
-                        items.add(invoiceItems);
-                        many--;
-                    }
+                        String iProductId;
+                        do {
+                            System.out.print("Enter the Product Id      : ");
+                            iProductId = sc.nextLine();
+                        }
+                        while (!validation.present(iProductId));
+                        invoiceService.getProductForInvoice(iProductId);
+                        int iQuantity;
+                        do {
+                            System.out.print("Enter the Product Quantity: ");
+                            iQuantity = sc.nextInt();
+                            sc.nextLine();
+                        }while(!invoiceService.validateQuantity(iProductId,iQuantity));
+                        System.out.print("Add Another Product? (Yes/NO): ");
+                        String add = sc.nextLine();
+                        yes = validation.product(add);
+                        int total = iQuantity*invoiceService.getProductPrice(iProductId);
+                        subTotal+=total;
+                        InvoiceItems invoiceItems = new InvoiceItems(iProductId,invoiceService.getProductPrice(iProductId),iQuantity,total);
+                        invoiceService.addInvoiceItem(invoiceItems);
+                    }while(yes);
                     long id = idGenerator.generateInvoiceId();
                     Invoice invoice = new Invoice(id,customerName,customerNumber,items,subTotal);
                     invoiceService.addInvoice(id,invoice);

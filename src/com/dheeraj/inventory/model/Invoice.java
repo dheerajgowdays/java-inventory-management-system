@@ -8,7 +8,7 @@ public class Invoice{
     private final String customerName;
     private final long phoneNumber;
     private final LocalDate date;
-    private  ArrayList<InvoiceItems> items;
+    private final ArrayList<InvoiceItems> items;
     private final int total;
 
 

@@ -7,6 +7,7 @@ import storage.FileStorage;
 public class ProductRepository {
     FileStorage storage = new FileStorage();
     LinkedHashMap<String, Product> products = storage.readProduct();
+
     public void addProducts(String id, Product product) {
         products.put(id,product);
         storage.writeProduct(products);
@@ -34,5 +35,9 @@ public class ProductRepository {
     }
     public LinkedHashMap<String ,Product> getProducts(){
         return products;
+    }
+    public void updateQuantity(int quantity,Product product){
+        product.setQuantity(quantity);
+        storage.writeProduct(products);
     }
 }
