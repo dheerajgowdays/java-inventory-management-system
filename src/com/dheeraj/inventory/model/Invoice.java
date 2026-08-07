@@ -45,8 +45,4 @@ public class Invoice implements Serializable {
     public int getTotal() {
         return total;
     }
-
-    public void addInvoiceItem(InvoiceItems invoiceItems){
-        items.add(invoiceItems);
-    }
 }

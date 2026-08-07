@@ -2,10 +2,10 @@ package model;
 import java.io.Serializable;
 public class InvoiceItems implements Serializable {
 
-    private String product;
-    private int quantity;
-    private int priceAtPurchase;
-    private int subPrice;
+    private final String product;
+    private final int quantity;
+    private final int priceAtPurchase;
+    private final int subPrice;
 
     public InvoiceItems( String product,int quantity,int priceAtPurchase,int subPrice){
         this.product = product;
@@ -17,26 +17,10 @@ public class InvoiceItems implements Serializable {
     public String getProduct() {
         return product;
     }
-    public void setProduct(String  product){
-        this.product = product;
-    }
     public int getQuantity(){
         return quantity;
     }
-    public void setQuantity(int quantity){
-        this.quantity = quantity;
-    }
     public int getPriceAtPurchase(){
         return priceAtPurchase;
-    }
-    public void setPriceAtPurchase(int priceAtPurchase){
-        this.priceAtPurchase = priceAtPurchase;
-    }
-    public void setSubPrice(int subPrice){
-        this.subPrice = subPrice;
-    }
-
-    public int getSubPrice(){
-        return subPrice;
     }
 }

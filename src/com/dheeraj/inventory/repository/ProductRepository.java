@@ -35,14 +35,14 @@ public class ProductRepository {
         products.remove(id);
         storage.writeProduct(products);
     }
-    public LinkedHashMap<String ,Product> getProducts(){
-        return products;
-    }
     public void updateQuantity(int quantity,Product product){
         product.setQuantity(quantity);
         storage.writeProduct(products);
     }
     public Collection<Product> getAllProducts() {
         return products.values();
+    }
+    public void reloadProducts(){
+        products = storage.readProduct();
     }
 }

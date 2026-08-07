@@ -18,4 +18,7 @@ public class InvoiceRepository {
         }
         return null;
     }
+    public void reloadInvoices(){
+        invoices = fileStorage.readInvoice();
+    }
 }

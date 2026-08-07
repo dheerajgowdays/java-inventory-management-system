@@ -5,6 +5,7 @@ import model.InvoiceItems;
 import model.Product;
 import repository.InvoiceRepository;
 import repository.ProductRepository;
+import service.BackupService;
 import service.CSVService;
 import service.InvoiceService;
 import service.ProductService;
@@ -21,6 +22,7 @@ public class Main {
         IdGenerator idGenerator = new IdGenerator();
         Validation validation = new Validation(productRepository);
         CSVService csvService = new CSVService(service);
+        BackupService backupService = new BackupService(productRepository,invoiceRepository);
         while(true){
             System.out.println("\n ==================== Inventory Management ==================== \n");
             System.out.println("1.  Add Product");
@@ -183,11 +185,14 @@ public class Main {
                 case 10:
                     //Backup Data
                     System.out.println("\n ==================== BackUp Data ====================\n");
-
+                    backupService.backupProducts();
+                    backupService.backupInvoice();
                     break;
                 case 11:
                     //Restore BackUp
                     System.out.println("\n ==================== Restore BackUp ====================\n");
+                    backupService.restoreProduct();
+                    backupService.restoreInvoice();
                     break;
                 case 12:
                     //Exit
