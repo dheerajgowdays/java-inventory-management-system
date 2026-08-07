@@ -1,5 +1,7 @@
 package repository;
 import model.Product;
+
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import storage.FileStorage;
@@ -39,5 +41,8 @@ public class ProductRepository {
     public void updateQuantity(int quantity,Product product){
         product.setQuantity(quantity);
         storage.writeProduct(products);
+    }
+    public Collection<Product> getAllProducts() {
+        return products.values();
     }
 }

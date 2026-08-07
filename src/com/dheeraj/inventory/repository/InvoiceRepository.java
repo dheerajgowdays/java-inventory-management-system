@@ -1,18 +1,15 @@
 package repository;
-
 import model.Invoice;
-import model.InvoiceItems;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import storage.FileStorage;
+import java.util.LinkedHashMap;
 
 public class InvoiceRepository {
-
-    HashMap<Long, Invoice> invoices = new HashMap<>();
-    ArrayList<InvoiceItems> items = new ArrayList<>();
+    FileStorage fileStorage = new FileStorage();
+    LinkedHashMap<Long, Invoice> invoices = fileStorage.readInvoice();
 
     public void addInvoice(long id , Invoice invoice){
         invoices.put(id,invoice);
+        fileStorage.writeInvoice(invoices);
     }
 
     public Invoice getById(long id){
@@ -20,9 +17,5 @@ public class InvoiceRepository {
             return invoices.get(id);
         }
         return null;
-    }
-
-    public void addInvoiceItem(InvoiceItems item){
-        items.add(item);
     }
 }

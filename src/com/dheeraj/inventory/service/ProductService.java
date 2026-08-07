@@ -1,6 +1,7 @@
 package service;
 import model.Product;
 import repository.ProductRepository;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ProductService{
@@ -20,7 +21,7 @@ public class ProductService{
             } else if (!(prod.getPrice() == product.getPrice())) {
                 System.out.println("For this Product Id Product Prices Does Not Match ");
             } else {
-                prod.setQuantity(prod.getQuantity() + product.getQuantity());
+                productRepository.updateQuantity(prod.getQuantity() + product.getQuantity(),prod);
                 System.out.println("Product Exist So More Quantity Added Successfully");
             }
         }
@@ -80,4 +81,21 @@ public class ProductService{
             System.out.println("----------------------------------------------\n");
         }
     }
+    public String csvAddProduct(String id, Product product){
+        if (!productRepository.contains(id)){
+            productRepository.addProducts(id,product);
+        } else {
+            Product prod = productRepository.IfExist(id);
+            if (!prod.getProductName().equalsIgnoreCase(product.getProductName()) || !(prod.getPrice() == product.getPrice()) || !(prod.getCategory().equalsIgnoreCase(product.getCategory()))) {
+                return "Rejected";
+            } else {
+                productRepository.updateQuantity(prod.getQuantity() + product.getQuantity(),prod);
+                return "Updated";
+            }
+        }
+        return "Added";
+    }
+        public ArrayList<Product> csvGetAllProducts() {
+            return new ArrayList<>(productRepository.getAllProducts());
+        }
 }

@@ -1,6 +1,6 @@
 package model;
-import model.Product;
-public class InvoiceItems{
+import java.io.Serializable;
+public class InvoiceItems implements Serializable {
 
     private String product;
     private int quantity;

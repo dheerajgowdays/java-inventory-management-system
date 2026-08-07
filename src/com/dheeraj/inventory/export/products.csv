@@ -1,0 +1,8 @@
+ID,Name,Price,Category,Quantity
+1,Laptop,50000,Electronics,100
+2,Mouse,1000,electronics,79
+3,KeyBoard,5000,electronics,100
+P101,Laptop,50000,Electronics,100
+P102,Mouse,1000,Accessories,50
+P103,Keyboard,5000,Accessories,75
+P104,Phone,10000,Electronics,100

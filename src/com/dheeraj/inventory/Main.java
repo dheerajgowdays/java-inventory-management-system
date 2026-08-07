@@ -5,6 +5,7 @@ import model.InvoiceItems;
 import model.Product;
 import repository.InvoiceRepository;
 import repository.ProductRepository;
+import service.CSVService;
 import service.InvoiceService;
 import service.ProductService;
 import util.IdGenerator;
@@ -19,6 +20,7 @@ public class Main {
         InvoiceService invoiceService = new InvoiceService(productRepository,invoiceRepository);
         IdGenerator idGenerator = new IdGenerator();
         Validation validation = new Validation(productRepository);
+        CSVService csvService = new CSVService(service);
         while(true){
             System.out.println("\n ==================== Inventory Management ==================== \n");
             System.out.println("1.  Add Product");
@@ -153,7 +155,7 @@ public class Main {
                         int total = iQuantity*invoiceService.getProductPrice(iProductId);
                         subTotal+=total;
                         InvoiceItems invoiceItems = new InvoiceItems(iProductId,invoiceService.getProductPrice(iProductId),iQuantity,total);
-                        invoiceService.addInvoiceItem(invoiceItems);
+                        items.add(invoiceItems);
                     }while(yes);
                     long id = idGenerator.generateInvoiceId();
                     Invoice invoice = new Invoice(id,customerName,customerNumber,items,subTotal);
@@ -169,14 +171,19 @@ public class Main {
                 case 8:
                     //Import Products (csv)
                     System.out.println("\n ==================== Import Product ====================\n");
+                    System.out.println("Enter the CSV file Path: ");
+                    String iPath = sc.nextLine();
+                    csvService.importCSV(iPath);
                     break;
                 case 9:
                     //Export Products (csv)
                     System.out.println("\n ==================== Export Products ====================\n");
+                    csvService.exportCSV();
                     break;
                 case 10:
                     //Backup Data
                     System.out.println("\n ==================== BackUp Data ====================\n");
+
                     break;
                 case 11:
                     //Restore BackUp

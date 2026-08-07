@@ -3,10 +3,7 @@ package storage;
 import model.Invoice;
 import model.Product;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.LinkedHashMap;
 
 public class FileStorage  {
@@ -32,7 +29,7 @@ public class FileStorage  {
         }
         return new LinkedHashMap<>();
     }
-    public void writeInvoice(LinkedHashMap<String , Invoice> invoice){
+    public void writeInvoice(LinkedHashMap<Long, Invoice> invoice){
         try(FileOutputStream fos = new FileOutputStream("storage/invoice.dat");
             ObjectOutputStream oos = new ObjectOutputStream(fos)){
             oos.writeObject(invoice);
@@ -40,5 +37,17 @@ public class FileStorage  {
         }catch (Exception e){
             System.out.println("Failed to write: "+e.getMessage());
         }
+    }
+    @SuppressWarnings("unchecked")
+    public LinkedHashMap<Long,Invoice> readInvoice(){
+        try(FileInputStream fis = new FileInputStream("storage/invoice.dat");
+        ObjectInputStream ois = new ObjectInputStream(fis)){
+            Object obj = ois.readObject();
+            System.out.println("Reading Invoice Data");
+            return (LinkedHashMap<Long, Invoice>) obj;
+        }catch (Exception e){
+            System.out.println("Failed to read: "+e.getMessage());
+        }
+        return new LinkedHashMap<>();
     }
 }
